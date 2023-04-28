@@ -1,13 +1,16 @@
-import { User } from "src/entities/user.entity";
-import { TypeOrmModule } from "@nestjs/typeorm"
+import { DataSource, DataSourceOptions } from "typeorm";
 
-export const config: TypeOrmModule = {
+export const dataSourceOptions: DataSourceOptions = {
     type: 'postgres',
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    username: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    entities: [User],
-    synchronize: true
+    host: 'containers-us-west-35.railway.app',
+    port: 6129,
+    username: 'postgres',
+    password: 'KfunpUF7Kyw0reWmsFDn',
+    database: 'railway',
+    entities: ['dist/**/*.entity.js'],
+    migrations: ['dist/src/migration/*.js']
 }
+
+const dataSource = new DataSource(dataSourceOptions)
+
+export default dataSource

@@ -5,10 +5,10 @@ import { UserController } from './user/user.controller';
 import { UserModule } from './user/user.module';
 import { BotModule } from './bot/bot.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { config } from 'ormconfig';
+import { dataSourceOptions } from 'ormconfig';
 
 @Module({
-  imports: [UserModule, BotModule,  TypeOrmModule.forRoot(config)],
+  imports: [TypeOrmModule.forRoot(dataSourceOptions), UserModule, BotModule],
   controllers: [AppController, UserController],
   providers: [AppService],
 })

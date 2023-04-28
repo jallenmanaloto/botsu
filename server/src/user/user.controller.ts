@@ -4,8 +4,8 @@ import { Controller, Get } from '@nestjs/common';
 export class UserController {
 
     @Get()
-    index(): [] {
-        return [];
+    index(): any {
+        return process.env.DB_PASSWORD;
     }
     
 }
