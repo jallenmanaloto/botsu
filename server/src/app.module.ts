@@ -7,13 +7,15 @@ import { BotModule } from './bot/bot.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { dataSourceOptions } from '../ormconfig'
+import { QuirkModule } from './quirk/quirk.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot(dataSourceOptions),
     UserModule,
-    BotModule
+    BotModule,
+    QuirkModule
   ],
   controllers: [AppController, UserController],
   providers: [AppService],

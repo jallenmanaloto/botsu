@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToOne, JoinColumn } from 'typeorm'
 import { User } from './user.entity';
+import { Quirk } from './quirk.entity';
 
 @Entity()
 export class Bot {
@@ -15,8 +16,8 @@ export class Bot {
     @Column()
     description: string;
 
-    @Column()
-    quirk: string;
-
     @ManyToOne(type => User, user => user.bots) user: User;
+
+    @OneToOne(type => Quirk) @JoinColumn()
+    quirk: Quirk;
 }
