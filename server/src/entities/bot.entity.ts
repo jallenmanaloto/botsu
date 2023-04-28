@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm'
+import { User } from './user.entity';
 
 @Entity()
 export class Bot {
@@ -16,4 +17,6 @@ export class Bot {
 
     @Column()
     quirk: string;
+
+    @ManyToOne(type => User, user => user.bots) user: User;
 }

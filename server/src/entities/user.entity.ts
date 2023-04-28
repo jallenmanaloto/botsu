@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert} from 'typeorm'
+import { Entity, Column, PrimaryGeneratedColumn, BeforeInsert, OneToMany } from 'typeorm'
 import * as bcrypt from 'bcrypt'
+import { Bot } from './bot.entity';
 
 @Entity()
 export class User {
@@ -14,6 +15,8 @@ export class User {
 
     @Column()
     password: string;
+
+    @OneToMany(type => Bot, bot => bot.user) bots: User[]
 
     @BeforeInsert()
     async hashPassword(): Promise<void> {
