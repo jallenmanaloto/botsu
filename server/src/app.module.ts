@@ -6,20 +6,12 @@ import { UserModule } from './user/user.module';
 import { BotModule } from './bot/bot.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { dataSourceOptions } from '../ormconfig'
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: process.env.DB_HOST,
-      port: parseInt(process.env.DB_PORT),
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
-      entities: ['dist/**/*.entity.js'],
-      migrations: ['dist/src/migration/*.js']
-    }),
+    TypeOrmModule.forRoot(dataSourceOptions),
     UserModule,
     BotModule
   ],
