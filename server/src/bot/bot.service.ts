@@ -1,14 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { CreateBotDto } from './dto/create-bot.dto';
 import { UpdateBotDto } from './dto/update-bot.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { BotRepository } from './bot.repository';
 
 @Injectable()
 export class BotService {
+  constructor(
+    @InjectRepository(BotRepository)
+    private botRepository: BotRepository
+  ) {}
+
   create(createBotDto: CreateBotDto) {
-    return 'This action adds a new bot';
+    const newBot = this.botRepository.createNew(createBotDto);
   }
 
-  findAll() {
+  findAll() { 
     return `This action returns all bot`;
   }
 
