@@ -5,7 +5,7 @@ import { UserModule } from './user/user.module';
 import { BotModule } from './bot/bot.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { dataSourceOptions } from './config/ormconfig'
+import { dataSourceOptions } from '../ormconfig'
 import { QuirkModule } from './quirk/quirk.module';
 
 @Module({

@@ -23,4 +23,7 @@ export class Bot {
 
   @OneToOne(type => Quirk) @JoinColumn()
   quirk: Quirk;
+
+  @Column({ nullable: true })
+  quirkName: string;
 }

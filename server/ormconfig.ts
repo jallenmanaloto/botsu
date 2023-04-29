@@ -1,8 +1,8 @@
 import { DataSourceOptions, DataSource } from "typeorm";
 import * as dotenv from 'dotenv'
-import { Bot } from '../entities/bot.entity'
-import { User } from '../entities/user.entity'
-import { Quirk } from '../entities/quirk.entity'
+import { Bot } from './src/entities/bot.entity'
+import { User } from './src/entities/user.entity'
+import { Quirk } from './src/entities/quirk.entity'
 
 dotenv.config()
 
