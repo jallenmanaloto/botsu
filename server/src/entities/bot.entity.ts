@@ -18,6 +18,9 @@ export class Bot {
 
   @ManyToOne(type => User, user => user.bots) user: User;
 
+  @Column()
+  userId: string;
+
   @OneToOne(type => Quirk) @JoinColumn()
   quirk: Quirk;
 }

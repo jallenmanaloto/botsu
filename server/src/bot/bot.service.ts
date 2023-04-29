@@ -3,7 +3,6 @@ import { CreateBotDto } from './dto/create-bot.dto';
 import { UpdateBotDto } from './dto/update-bot.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Bot } from '../entities/bot.entity';
-import { BotRepository } from './bot.repository';
 import { Repository } from 'typeorm';
 
 @Injectable()
