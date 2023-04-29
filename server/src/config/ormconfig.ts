@@ -1,5 +1,8 @@
 import { DataSourceOptions, DataSource } from "typeorm";
 import * as dotenv from 'dotenv'
+import { Bot } from '../entities/bot.entity'
+import { User } from '../entities/user.entity'
+import { Quirk } from '../entities/quirk.entity'
 
 dotenv.config()
 
@@ -10,7 +13,7 @@ export const dataSourceOptions: DataSourceOptions = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities: ['dist/src/entities/*.entity.{js,ts}'],
+  entities: [Bot, User, Quirk],
   migrations: ['dist/src/migration/*.{js,ts}']
 }
 

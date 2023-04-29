@@ -1,15 +1,16 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreateBotDto } from './dto/create-bot.dto';
 import { UpdateBotDto } from './dto/update-bot.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Bot } from 'src/entities/bot.entity';
+import { Bot } from '../entities/bot.entity';
 import { BotRepository } from './bot.repository';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class BotService {
   constructor(
     @InjectRepository(Bot)
-    private botRepository: BotRepository
+    private botRepository: Repository<Bot>
   ) { }
 
   create(createBotDto: CreateBotDto) {
