@@ -1,15 +1,26 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpStatus, Res } from '@nestjs/common';
 import { BotService } from './bot.service';
 import { CreateBotDto } from './dto/create-bot.dto';
 import { UpdateBotDto } from './dto/update-bot.dto';
+import { Response } from 'express';
 
 @Controller('bot')
 export class BotController {
   constructor(private readonly botService: BotService) { }
 
   @Post()
-  create(@Body() createBotDto: CreateBotDto) {
-    return this.botService.create(createBotDto);
+  async create(@Body() createBotDto: CreateBotDto, @Res() res: Response) {
+    const newBot = await this.botService.create(createBotDto);
+    if (newBot) return res.status(HttpStatus.CREATED)
+      .json({
+        message: 'Successfully created a new Bot',
+        bot: newBot
+      });
+
+    return res.status(HttpStatus.BAD_REQUEST)
+      .json({
+        message: 'Unable to create a new bot',
+      });
   }
 
   @Get()

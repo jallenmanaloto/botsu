@@ -12,9 +12,9 @@ export class BotService {
     private botRepository: BotRepository
   ) { }
 
-  async create(createBotDto: CreateBotDto) {
+  create(createBotDto: CreateBotDto) {
     const newBot = this.botRepository.create(createBotDto);
-    const savedBot = await this.botRepository.save(newBot);
+    const savedBot = this.botRepository.save(newBot);
 
     return savedBot;
   }
