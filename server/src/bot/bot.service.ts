@@ -19,8 +19,14 @@ export class BotService {
     return savedBot;
   }
 
-  findAll() {
-    return `This action returns all bot`;
+  findAll(userId: string) {
+    return this.botRepository.find({
+      where: {
+        user: {
+          id: userId
+        }
+      }
+    });
   }
 
   findOne(id: number) {

@@ -24,8 +24,8 @@ export class BotController {
   }
 
   @Get()
-  findAll() {
-    return this.botService.findAll();
+  findAll(@Param('userId') userId: string) {
+    return this.botService.findAll(userId);
   }
 
   @Get(':id')
