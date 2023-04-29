@@ -51,7 +51,13 @@ export class BotController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.botService.remove(+id);
+  async remove(@Param('id') id: string, @Res() res: Response) {
+    const botToDelete = await this.botService.findOne(id);
+    this.botService.remove(id);
+
+    if (botToDelete) return res.status(HttpStatus.OK).json({
+      message: 'Bot deleted successfully',
+      bot: botToDelete
+    })
   }
 }

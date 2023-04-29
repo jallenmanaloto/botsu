@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateBotDto } from './dto/create-bot.dto';
 import { UpdateBotDto } from './dto/update-bot.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -39,7 +39,7 @@ export class BotService {
     return updatedBot.affected > 0;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} bot`;
+  remove(id: string) {
+    this.botRepository.delete(id);
   }
 }
