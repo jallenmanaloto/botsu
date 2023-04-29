@@ -29,12 +29,14 @@ export class BotService {
     });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} bot`;
+  findOne(id: string) {
+    return this.botRepository.findBy({ id });
   }
 
-  async update(id: number, updateBotDto: UpdateBotDto) {
-    return await this.botRepository.update(id, updateBotDto);
+  async update(id: string, updateBotDto: UpdateBotDto) {
+    const updatedBot = await this.botRepository.update(id, updateBotDto);
+
+    return updatedBot.affected > 0;
   }
 
   remove(id: number) {

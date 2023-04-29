@@ -30,12 +30,24 @@ export class BotController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.botService.findOne(+id);
+    return this.botService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBotDto: UpdateBotDto) {
-    return this.botService.update(+id, updateBotDto);
+  async update(
+    @Param('id') id: string,
+    @Body() updateBotDto: UpdateBotDto,
+    @Res() res: Response
+  ) {
+    const updatedBot = await this.botService.update(id, updateBotDto);
+
+    if (updatedBot) return res.status(HttpStatus.OK).json({
+      message: 'Successfully updated bot'
+    })
+
+    return res.status(HttpStatus.BAD_REQUEST).json({
+      message: 'Unable to update bot'
+    })
   }
 
   @Delete(':id')
