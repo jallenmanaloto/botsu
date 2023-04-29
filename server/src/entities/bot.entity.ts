@@ -4,20 +4,20 @@ import { Quirk } from './quirk.entity';
 
 @Entity()
 export class Bot {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @Column()
-    name: string;
+  @Column()
+  name: string;
 
-    @Column()
-    styleName: string;
+  @Column()
+  styleName: string;
 
-    @Column()
-    description: string;
+  @Column()
+  description: string;
 
-    @ManyToOne(type => User, user => user.bots) user: User;
+  @ManyToOne(type => User, user => user.bots) user: User;
 
-    @OneToOne(type => Quirk) @JoinColumn()
-    quirk: Quirk;
+  @OneToOne(type => Quirk) @JoinColumn()
+  quirk: Quirk;
 }
