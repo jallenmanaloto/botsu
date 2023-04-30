@@ -1,11 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { QuirkService } from './quirk.service';
 import { CreateQuirkDto } from './dto/create-quirk.dto';
 import { UpdateQuirkDto } from './dto/update-quirk.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('quirk')
+@UseGuards(AuthGuard('jwt'))
 export class QuirkController {
-  constructor(private readonly quirkService: QuirkService) {}
+  constructor(private readonly quirkService: QuirkService) { }
 
   @Post()
   create(@Body() createQuirkDto: CreateQuirkDto) {
