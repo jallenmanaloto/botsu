@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { dataSourceOptions } from '../ormconfig'
 import { QuirkModule } from './quirk/quirk.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { QuirkModule } from './quirk/quirk.module';
     TypeOrmModule.forRoot(dataSourceOptions),
     UserModule,
     BotModule,
-    QuirkModule
+    QuirkModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],
