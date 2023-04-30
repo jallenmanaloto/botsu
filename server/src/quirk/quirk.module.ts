@@ -3,10 +3,10 @@ import { QuirkService } from './quirk.service';
 import { QuirkController } from './quirk.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Quirk } from '../entities/quirk.entity';
-import { QuirkRepository } from './quirk.repository';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Quirk])],
+  imports: [TypeOrmModule.forFeature([Quirk]), HttpModule],
   controllers: [QuirkController],
   providers: [QuirkService]
 })
