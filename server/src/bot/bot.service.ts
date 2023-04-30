@@ -19,14 +19,29 @@ export class BotService {
     return savedBot;
   }
 
-  findAll(userId: string) {
-    return this.botRepository.find({
-      where: {
-        user: {
-          id: userId
-        }
-      }
-    });
+  async paginate(limit?: number, offset?: number): Promise<[Bot[], number]> {
+    const query = this.botRepository.createQueryBuilder('quirk');
+    if (limit) query.take(limit);
+    if (offset) query.skip(offset);
+
+    const [bots, total] = await query.getManyAndCount();
+
+    return [bots, total];
+  }
+
+  async findAll(userId: string, limit?: number, page?: number) {
+
+    const limitPerPage = limit || 5;
+    const currentPage = page || 1;
+    const offset = (currentPage - 1) * limitPerPage;
+    const [quirks, total] = await this.paginate(limitPerPage, offset);
+
+    return {
+      data: quirks,
+      currentPage,
+      total,
+      lastPage: Math.ceil(total / limitPerPage)
+    }
   }
 
   findOne(id: string) {

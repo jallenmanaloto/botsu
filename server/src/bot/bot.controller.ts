@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpStatus, Res, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpStatus, Res, UseGuards, Query } from '@nestjs/common';
 import { BotService } from './bot.service';
 import { CreateBotDto } from './dto/create-bot.dto';
 import { UpdateBotDto } from './dto/update-bot.dto';
@@ -26,8 +26,12 @@ export class BotController {
   }
 
   @Get()
-  findAll(@Param('userId') userId: string) {
-    return this.botService.findAll(userId);
+  findAll(
+    @Param('userId') userId: string,
+    @Query('limit') limit: number,
+    @Query('page') page: number
+  ) {
+    return this.botService.findAll(userId, limit, page);
   }
 
   @Get(':id')
