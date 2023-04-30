@@ -3,13 +3,13 @@ import { CreateBotDto } from './dto/create-bot.dto';
 import { UpdateBotDto } from './dto/update-bot.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Bot } from '../entities/bot.entity';
-import { Repository } from 'typeorm';
+import { BotRepository } from './bot.repository';
 
 @Injectable()
 export class BotService {
   constructor(
     @InjectRepository(Bot)
-    private botRepository: Repository<Bot>
+    private botRepository: BotRepository
   ) { }
 
   create(createBotDto: CreateBotDto) {
