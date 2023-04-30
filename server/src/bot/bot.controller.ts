@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpStatus, Res, UseGuards, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpStatus, Res, UseGuards, Query, UsePipes, ValidationPipe } from '@nestjs/common';
 import { BotService } from './bot.service';
 import { CreateBotDto } from './dto/create-bot.dto';
 import { UpdateBotDto } from './dto/update-bot.dto';
@@ -11,6 +11,7 @@ export class BotController {
   constructor(private readonly botService: BotService) { }
 
   @Post()
+  @UsePipes(new ValidationPipe())
   async create(@Body() createBotDto: CreateBotDto, @Res() res: Response) {
     const newBot = await this.botService.create(createBotDto);
     if (newBot) return res.status(HttpStatus.CREATED)
@@ -40,6 +41,7 @@ export class BotController {
   }
 
   @Patch(':id')
+  @UsePipes(new ValidationPipe())
   async update(
     @Param('id') id: string,
     @Body() updateBotDto: UpdateBotDto,
