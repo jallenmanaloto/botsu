@@ -110,3 +110,21 @@ export const useNavigationStore = create<Navigations>((set) => ({
   activeNav: 'home',
   setActiveNav: (nav: string) => set({ activeNav: nav })
 }))
+
+export interface QuirkData {
+  id: string;
+  name: string;
+  description: string;
+  flag: string;
+
+}
+
+export type Quirk = {
+  quirks: QuirkData[];
+  setQuirks: (quirkData: QuirkData[]) => void
+}
+
+export const useQuirkStore = create<Quirk>((set) => ({
+  quirks: [],
+  setQuirks: (quirkData) => set({ quirks: quirkData })
+}))

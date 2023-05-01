@@ -18,7 +18,7 @@ export default function BotDisplay({
 }) {
 	const { mode } = useModeStore()
 	const { token } = useLoginStore()
-	const { setViewBot, setViewBotDetails, viewBotDetails } = useBotStore()
+	const { setViewBot, setViewBotDetails } = useBotStore()
 	const [quirk, setQuirk] = useState('')
 	const [activeStyleName, setActiveStyleName] = useState('')
 	const baseUrl = import.meta.env.VITE_GET_QUIRK

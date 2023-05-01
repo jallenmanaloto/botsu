@@ -1,11 +1,31 @@
-import { useLoginStore, useNavigationStore } from '../../utils/store'
+import {
+	useLoginStore,
+	useNavigationStore,
+	useQuirkStore,
+} from '../../utils/store'
 import MyBots from '../bots/MyBots'
 import Collection from './Collection'
 import CreateBotModal from '../bots/CreateBotModal'
+import { useQuery } from 'react-query'
+import axios from 'axios'
 
 export default function Space() {
-	const { name } = useLoginStore()
+	const { name, token } = useLoginStore()
 	const { activeNav } = useNavigationStore()
+	const { setQuirks } = useQuirkStore()
+
+	const url = import.meta.env.VITE_GET_QUIRK
+	useQuery({
+		queryFn: async () => {
+			await axios
+				.get(url, {
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				})
+				.then((res) => setQuirks(res.data))
+		},
+	})
 
 	return (
 		<>

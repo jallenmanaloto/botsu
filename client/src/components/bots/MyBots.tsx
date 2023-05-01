@@ -3,7 +3,7 @@ import BotDisplay from './BotDisplay'
 import BotModal from './BotModal'
 
 export default function MyBots() {
-	const { collection, setViewBot, setNewBot } = useBotStore()
+	const { collection, setNewBot } = useBotStore()
 	const botCollection = collection.map((bot) => {
 		return <BotDisplay key={bot.id} botData={bot} command="View" />
 	})

@@ -4,12 +4,12 @@ import Modal from '@mui/material/Modal'
 import { Box } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import axios from 'axios'
-import { useMutation, useQuery } from 'react-query'
+import { useMutation } from 'react-query'
 import ReactLoading from 'react-loading'
 
 export default function BotModal() {
 	const { viewBot, setViewBot, viewBotDetails } = useBotStore()
-	const { id, token } = useLoginStore()
+	const { token } = useLoginStore()
 
 	const [name, setName] = useState('')
 	const [description, setDescription] = useState('')
@@ -22,7 +22,7 @@ export default function BotModal() {
 			setQuirk(viewBotDetails.quirkName)
 		}
 	}, [viewBotDetails])
-	console.log(viewBotDetails.name)
+
 	const baseUrl = import.meta.env.VITE_ALL_BOTS_URL
 	const url = `${baseUrl}/${viewBotDetails.id}`
 

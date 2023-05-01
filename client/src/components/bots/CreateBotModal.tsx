@@ -1,9 +1,17 @@
 import { useState } from 'react'
-import { useBotStore } from '../../utils/store'
+import {
+	QuirkData,
+	useBotStore,
+	useLoginStore,
+	useModeStore,
+	useQuirkStore,
+} from '../../utils/store'
 import Modal from '@mui/material/Modal'
 import { Box } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
-import ReactLoading from 'react-loading'
+import { useMutation } from 'react-query'
+import axios from 'axios'
+import toast, { Toaster } from 'react-hot-toast'
 
 const seeds = [
 	'Nala',
@@ -29,14 +37,60 @@ const seeds = [
 ]
 
 export default function CreateBotModal() {
+	const { mode } = useModeStore()
 	const { newBot, setNewBot } = useBotStore()
+	const { id, token } = useLoginStore()
+	const { quirks } = useQuirkStore()
 	const [name, setName] = useState('')
 	const [description, setDescription] = useState('')
-	const [quirk, setQuirk] = useState('')
 	const randomSeed = seeds[Math.floor(Math.random() * seeds.length)]
+	const randomQuirk: QuirkData =
+		quirks[Math.floor(Math.random() * quirks.length)]
+
+	const botData = {
+		userId: id,
+		name: name,
+		description: description,
+		styleName: randomSeed,
+		quirkName: randomQuirk?.name,
+		quirkFlag: randomQuirk?.flag,
+		quirkId: randomQuirk?.id,
+	}
+
+	const url = import.meta.env.VITE_ALL_BOTS_URL
+	const { mutate } = useMutation({
+		mutationFn: async () => {
+			axios.post(url, botData, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
+		},
+
+		onSuccess: () => {
+			setName('')
+			setDescription('')
+			setNewBot(false)
+			toast.success('Successfully created a new bot', {
+				duration: 5000,
+				position: 'top-center',
+				style: {
+					backgroundColor: mode === 'dark' ? 'rgb(3 7 18)' : '',
+					color: mode === 'dark' ? 'white' : '',
+					width: '450px',
+				},
+			})
+		},
+	})
+
+	const handleCreateBot = (e: React.MouseEvent) => {
+		e.preventDefault()
+		mutate()
+	}
 
 	return (
 		<>
+			<Toaster />
 			<Modal
 				sx={{ position: 'absolute' }}
 				open={newBot}
@@ -83,14 +137,14 @@ export default function CreateBotModal() {
 							<h2 className="text-slate-300 pr-3">Quirk</h2>
 							<input
 								className="flex-1 h-5/6 pl-4 bg-slate-700 rounded-md outline-none text-slate-400"
-								value={quirk}
-								onChange={(e) => setQuirk(e.target.value)}
+								value="A randome one for you"
 								disabled={true}
 							/>
 						</div>
 						<div className="mt-14 w-full flex justify-around">
-							<button className="text-xl text-slate-200 bg-blue-950 w-[33%] h-12 font-comme font-semibold border-2 border-blue-950 rounded-md">
-								{/* {updateLoading ? <ReactLoading type="cylon" /> : 'Create'} */}
+							<button
+								onClick={(e) => handleCreateBot(e)}
+								className="text-xl text-slate-200 bg-blue-950 w-[33%] h-12 font-comme font-semibold border-2 border-blue-950 rounded-md">
 								Create
 							</button>
 						</div>
