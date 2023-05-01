@@ -10,7 +10,7 @@ function App() {
 			className={`w-screen h-screen ${
 				mode === 'dark'
 					? 'bg-slate-900 text-white'
-					: 'bg-slate-50 text-slate-900'
+					: 'bg-slate-100 text-gray-700'
 			}  flex justify-center`}>
 			<div className="container xl flex flex-col">
 				<Header />
