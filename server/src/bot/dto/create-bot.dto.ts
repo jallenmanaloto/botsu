@@ -16,4 +16,14 @@ export class CreateBotDto {
   @IsString()
   @IsNotEmpty()
   userId: string;
+
+  @IsString()
+  quirkId: string;
+
+  @IsString()
+  quirkName: string;
+
+  @IsString()
+  quirkFlag: string;
+
 }
