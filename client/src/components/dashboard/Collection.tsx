@@ -9,7 +9,7 @@ import BotDisplay from '../bots/BotDisplay'
 
 export default function Collection() {
 	const { id, token } = useLoginStore()
-	const { collection, setCollection } = useBotStore()
+	const { collection, setCollection, setNewBot } = useBotStore()
 	const { setCurrentPage, setTotal, setLastPage } = usePaginationStore()
 
 	const url = import.meta.env.VITE_ALL_BOTS_URL
@@ -42,7 +42,9 @@ export default function Collection() {
 	return (
 		<>
 			{collection.length < 1 ? (
-				<div className="border-2 border-slate-800 h-20 w-72 mt-10 rounded-md text-slate-700 flex justify-center items-center cursor-pointer">
+				<div
+					onClick={() => setNewBot(true)}
+					className="border-2 border-slate-800 h-20 w-72 mt-10 rounded-md text-slate-700 flex justify-center items-center cursor-pointer">
 					<h2 className="text-xl">+&nbsp;</h2>
 					<h2 className="text-xl"> Add a bot</h2>
 				</div>

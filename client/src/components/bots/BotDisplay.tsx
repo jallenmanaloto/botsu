@@ -52,9 +52,14 @@ export default function BotDisplay({
 
 	const handleView = () => {
 		setViewBot(true)
-		setViewBotDetails(botData)
-
-		console.log(viewBotDetails)
+		setViewBotDetails({
+			name: botData.name,
+			description: botData.description,
+			id: botData.id,
+			quirkFlag: botData.quirkFlag,
+			quirkName: botData.quirkName,
+			styleName: botData.styleName,
+		})
 	}
 
 	return (

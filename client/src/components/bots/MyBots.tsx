@@ -3,7 +3,7 @@ import BotDisplay from './BotDisplay'
 import BotModal from './BotModal'
 
 export default function MyBots() {
-	const { collection, setViewBot } = useBotStore()
+	const { collection, setViewBot, setNewBot } = useBotStore()
 	const botCollection = collection.map((bot) => {
 		return <BotDisplay key={bot.id} botData={bot} command="View" />
 	})
@@ -11,7 +11,7 @@ export default function MyBots() {
 	return (
 		<div className="w-8/12">
 			<div
-				onClick={() => setViewBot(true)}
+				onClick={() => setNewBot(true)}
 				className="border-2 border-slate-800 h-14 w-40 mt-4 rounded-md text-slate-700 flex justify-center items-center cursor-pointer">
 				<h2 className="text-xl">+&nbsp;</h2>
 				<h2 className="text-xl"> Add a bot</h2>

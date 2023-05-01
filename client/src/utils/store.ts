@@ -50,6 +50,8 @@ type BotCollection = {
   collection: BotData[],
   viewBot: boolean,
   viewBotDetails: BotData,
+  newBot: boolean,
+  setNewBot: (action: boolean) => void,
   setCollection: (data: BotData[]) => void
   setViewBot: (action: boolean) => void
   setViewBotDetails: (data: BotData) => void
@@ -66,6 +68,8 @@ export const useBotStore = create<BotCollection>((set) => ({
     quirkName: '',
     quirkFlag: ''
   },
+  newBot: false,
+  setNewBot: (action) => set({ newBot: action }),
   setCollection: (data: BotData[]) => set({ collection: data }),
   setViewBot: (action) => set({ viewBot: action }),
   setViewBotDetails: (data) => set({
