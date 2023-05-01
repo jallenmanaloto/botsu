@@ -1,11 +1,12 @@
 import { useQuery } from 'react-query'
 import axios from 'axios'
-import { useLoginStore, useBotStore } from '../utils/store'
+import { useLoginStore, useBotStore, usePaginationStore } from '../utils/store'
 import BotDisplay from './BotDisplay'
 
 export default function Collection() {
 	const { id, token } = useLoginStore()
 	const { collection, setCollection } = useBotStore()
+	const { setCurrentPage, setTotal, setLastPage } = usePaginationStore()
 	const url = import.meta.env.VITE_ALL_BOTS_URL
 	const params = {
 		userId: id,
@@ -20,7 +21,12 @@ export default function Collection() {
 					headers: { Authorization: `Bearer ${token}` },
 					params: params,
 				})
-				.then((res) => setCollection(res.data.data))
+				.then((res) => {
+					setCollection(res.data.data)
+					setCurrentPage(res.data.currentPage)
+					setTotal(res.data.total)
+					setLastPage(res.data.lastPage)
+				})
 		},
 	})
 

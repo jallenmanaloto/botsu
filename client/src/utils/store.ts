@@ -42,7 +42,7 @@ export interface BotData {
   name: string;
   styleName: string;
   description: string;
-  quirkname: string;
+  quirkName: string;
   quirkFlag: string;
 }
 
@@ -54,4 +54,21 @@ type BotCollection = {
 export const useBotStore = create<BotCollection>((set) => ({
   collection: [],
   setCollection: (data: BotData[]) => set({ collection: data })
+}))
+
+type Pagination = {
+  currentPage: number;
+  total: number;
+  lastPage: number;
+  setCurrentPage: (page: number) => void;
+  setTotal: (page: number) => void;
+  setLastPage: (page: number) => void;
+}
+export const usePaginationStore = create<Pagination>((set) => ({
+  currentPage: 0,
+  total: 0,
+  lastPage: 0,
+  setCurrentPage: (page: number) => set({ currentPage: page }),
+  setTotal: (page: number) => set({ total: page }),
+  setLastPage: (page: number) => set({ lastPage: page })
 }))
