@@ -48,12 +48,36 @@ export interface BotData {
 
 type BotCollection = {
   collection: BotData[],
+  viewBot: boolean,
+  viewBotDetails: BotData,
   setCollection: (data: BotData[]) => void
+  setViewBot: (action: boolean) => void
+  setViewBotDetails: (data: BotData) => void
 }
 
 export const useBotStore = create<BotCollection>((set) => ({
   collection: [],
-  setCollection: (data: BotData[]) => set({ collection: data })
+  viewBot: false,
+  viewBotDetails: {
+    id: '',
+    description: '',
+    name: '',
+    styleName: '',
+    quirkName: '',
+    quirkFlag: ''
+  },
+  setCollection: (data: BotData[]) => set({ collection: data }),
+  setViewBot: (action) => set({ viewBot: action }),
+  setViewBotDetails: (data) => set({
+    viewBotDetails: {
+      id: data.id,
+      description: data.description,
+      name: data.name,
+      styleName: data.styleName,
+      quirkName: data.quirkName,
+      quirkFlag: data.quirkFlag
+    }
+  }),
 }))
 
 type Pagination = {

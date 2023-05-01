@@ -1,5 +1,10 @@
 import { useState } from 'react'
-import { BotData, useModeStore, useLoginStore } from '../../utils/store'
+import {
+	BotData,
+	useModeStore,
+	useLoginStore,
+	useBotStore,
+} from '../../utils/store'
 import { useQuery } from 'react-query'
 import axios from 'axios'
 import ReactLoading from 'react-loading'
@@ -13,6 +18,7 @@ export default function BotDisplay({
 }) {
 	const { mode } = useModeStore()
 	const { token } = useLoginStore()
+	const { setViewBot, setViewBotDetails, viewBotDetails } = useBotStore()
 	const [quirk, setQuirk] = useState('')
 	const [activeStyleName, setActiveStyleName] = useState('')
 	const baseUrl = import.meta.env.VITE_GET_QUIRK
@@ -44,7 +50,12 @@ export default function BotDisplay({
 		}, 5000)
 	}
 
-	const handleView = () => {}
+	const handleView = () => {
+		setViewBot(true)
+		setViewBotDetails(botData)
+
+		console.log(viewBotDetails)
+	}
 
 	return (
 		<div
