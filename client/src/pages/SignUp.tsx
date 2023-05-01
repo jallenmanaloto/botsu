@@ -1,4 +1,3 @@
-import Login from '../components/Login'
 import Header from '../components/Header'
 import { useModeStore } from '../utils/store'
 import SignUpForm from '../components/SignUpForm'
