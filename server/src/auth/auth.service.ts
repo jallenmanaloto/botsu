@@ -27,6 +27,9 @@ export class AuthService {
 
     return {
       message: 'Successfully signed in',
+      email: user.email,
+      name: user.name,
+      id: user.id,
       access_token: await this.jwtService.signAsync(payload)
     }
   }
