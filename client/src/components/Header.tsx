@@ -51,33 +51,3 @@ export default function Header() {
 		</div>
 	)
 }
-
-{
-	/* <div className="w-18 p-5 flex justify-around items-center">
-					<GitHubIcon
-						onClick={() => openGithub()}
-						className="cursor-pointer w-7 h-7 mr-2"
-					/>
-					{mode === 'dark' ? (
-						<DarkModeIcon
-							onClick={() => handleChangeMode()}
-							className="cursor-pointer w-7 h-7 mr-2"
-						/>
-					) : (
-						<LightModeIcon
-							onClick={() => handleChangeMode()}
-							className="cursor-pointer w-7 h-7 mr-2"
-						/>
-					)}
-				</div>
-				<div className="w-28 ">
-					{token ? (
-						<div className="w-full p-5 flex justify-around items-center cursor-pointer">
-							<h2 className="mr-1">{email}</h2>
-							<ArrowDropDownIcon />
-						</div>
-					) : (
-						''
-					)}
-				</div> */
-}

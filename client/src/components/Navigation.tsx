@@ -29,7 +29,7 @@ function NormalSizeNavigation() {
 
 export default function Navigation() {
 	return (
-		<div className="w-80">
+		<div className="md:w-80">
 			<MobileNavigation />
 			<NormalSizeNavigation />
 		</div>

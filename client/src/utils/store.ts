@@ -36,3 +36,22 @@ export const useLoginStore = create<Login>((set) => ({
   setEmail: (email: string) => set({ email: email }),
   setId: (id: string) => set({ id: id })
 }))
+
+export interface BotData {
+  id: string;
+  name: string;
+  styleName: string;
+  description: string;
+  quirkname: string;
+  quirkFlag: string;
+}
+
+type BotCollection = {
+  collection: BotData[],
+  setCollection: (data: BotData[]) => void
+}
+
+export const useBotStore = create<BotCollection>((set) => ({
+  collection: [],
+  setCollection: (data: BotData[]) => set({ collection: data })
+}))

@@ -15,7 +15,7 @@ export default function Home() {
 				}  flex justify-center`}>
 				<div className="container lg">
 					<Header />
-					<div className="flex h-5/6">
+					<div className="flex h-5/6 sm:justify-center">
 						<Navigation />
 						<Space />
 					</div>

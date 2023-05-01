@@ -47,6 +47,7 @@ export default function Login() {
 		onSuccess: () => {
 			setInputEmail('')
 			setPassword('')
+			navigate('/')
 		},
 	})
 
@@ -55,8 +56,6 @@ export default function Login() {
 			e?.preventDefault()
 			emailSchema.parse(email)
 			mutate()
-
-			navigate('/')
 		} catch (error) {
 			if (error instanceof ZodError) {
 				toast(error.message)
@@ -70,8 +69,6 @@ export default function Login() {
 				e.preventDefault()
 				emailSchema.parse(email)
 				mutate()
-
-				navigate('/')
 			} catch (error) {
 				if (error instanceof ZodError) {
 					error.errors.forEach((err) => {
