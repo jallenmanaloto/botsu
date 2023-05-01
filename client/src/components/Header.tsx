@@ -12,7 +12,7 @@ export default function Header() {
 
 	return (
 		<div className="container lg text-lg flex justify-between">
-			<h1 className="p-5 text-3xl">Botsu</h1>
+			<h1 className="p-5 text-5xl font-comfortaa font-semibold">Botsu</h1>
 			<div className="w-28 p-5 flex justify-around items-center">
 				<GitHubIcon className="cursor-pointer w-7 h-7" />
 				{mode === 'dark' ? (
