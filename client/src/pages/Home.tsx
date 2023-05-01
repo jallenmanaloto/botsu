@@ -1,10 +1,11 @@
 import { useModeStore } from '../utils/store'
 import Header from '../components/Header'
 import Navigation from '../components/Navigation'
-import Space from '../components/Space'
+import Space from '../components/dashboard/Space'
 
 export default function Home() {
 	const { mode } = useModeStore()
+
 	return (
 		<>
 			<div

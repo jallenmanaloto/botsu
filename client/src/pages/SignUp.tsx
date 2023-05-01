@@ -1,6 +1,6 @@
 import Header from '../components/Header'
 import { useModeStore } from '../utils/store'
-import SignUpForm from '../components/SignUpForm'
+import SignUpForm from '../components/forms/SignUpForm'
 
 export default function SignUp() {
 	const { mode } = useModeStore()

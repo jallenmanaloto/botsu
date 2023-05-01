@@ -1,10 +1,16 @@
 import { useState } from 'react'
-import { BotData, useModeStore, useLoginStore } from '../utils/store'
+import { BotData, useModeStore, useLoginStore } from '../../utils/store'
 import { useQuery } from 'react-query'
 import axios from 'axios'
 import ReactLoading from 'react-loading'
 
-export default function BotDisplay({ botData }: { botData: BotData }) {
+export default function BotDisplay({
+	botData,
+	command,
+}: {
+	botData: BotData
+	command: string
+}) {
 	const { mode } = useModeStore()
 	const { token } = useLoginStore()
 	const [quirk, setQuirk] = useState('')
@@ -38,6 +44,8 @@ export default function BotDisplay({ botData }: { botData: BotData }) {
 		}, 5000)
 	}
 
+	const handleView = () => {}
+
 	return (
 		<div
 			className={`w-5/6 h-60 bg-slate-800 rounded-lg flex flex-col items-center ${
@@ -60,7 +68,7 @@ export default function BotDisplay({ botData }: { botData: BotData }) {
 				{botData.quirkName}
 			</div>
 			<div
-				onClick={() => handleQuirk()}
+				onClick={command === 'Use' ? () => handleQuirk() : () => handleView()}
 				className={`h-10 w-10/12 mt-4 font-semibold font-comme flex justify-center items-center text-lg rounded-md border-2  cursor-pointer ${
 					mode === 'dark'
 						? 'border-slate-500 text-slate-400'
@@ -69,7 +77,7 @@ export default function BotDisplay({ botData }: { botData: BotData }) {
 				{activeStyleName === botData.styleName && isFetching ? (
 					<ReactLoading type="cylon" />
 				) : (
-					'use'
+					command
 				)}
 			</div>
 			{activeStyleName === botData.styleName && quirk}

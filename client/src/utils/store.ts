@@ -72,3 +72,13 @@ export const usePaginationStore = create<Pagination>((set) => ({
   setTotal: (page: number) => set({ total: page }),
   setLastPage: (page: number) => set({ lastPage: page })
 }))
+
+type Navigations = {
+  activeNav: string;
+  setActiveNav: (nav: string) => void;
+}
+
+export const useNavigationStore = create<Navigations>((set) => ({
+  activeNav: 'home',
+  setActiveNav: (nav: string) => set({ activeNav: nav })
+}))
