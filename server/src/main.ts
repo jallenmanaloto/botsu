@@ -6,7 +6,7 @@ import 'reflect-metadata'
 async function bootstrap() {
   dotenv.config()
 
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
   await app.listen(8000);
 }
 bootstrap();
