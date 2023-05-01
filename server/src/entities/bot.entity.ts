@@ -26,4 +26,7 @@ export class Bot {
 
   @Column({ nullable: true })
   quirkName: string;
+
+  @Column({ nullable: true })
+  quirkFlag: string;
 }

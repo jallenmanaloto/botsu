@@ -10,4 +10,7 @@ export class Quirk {
 
   @Column()
   description: string;
+
+  @Column({ nullable: true })
+  flag: string;
 }
