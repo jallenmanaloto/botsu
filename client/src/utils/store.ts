@@ -11,17 +11,16 @@ export const useModeStore = create<Mode>((set) => ({
   setMode: (mode: ModeType) => set({ mode: mode })
 }));
 
-type LoginResponse = {
-  message: string
-  access_token: string
-}
-
 type Login = {
   token: string;
-  setToken: (response: LoginResponse) => void
+  message: string;
+  setToken: (response: string) => void
+  setMessage: (message: string) => void
 }
 
 export const useLoginStore = create<Login>((set) => ({
   token: '',
-  setToken: (response: LoginResponse) => set({ token: response.access_token })
+  message: '',
+  setToken: (token: string) => set({ token: token }),
+  setMessage: (message: string) => set({ message: message })
 }))

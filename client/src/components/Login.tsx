@@ -1,32 +1,41 @@
 import { useModeStore, useLoginStore } from '../utils/store'
 import { useState } from 'react'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
+import { useMutation, useQuery } from 'react-query'
 
 export default function Login() {
 	const { mode } = useModeStore()
-	const { setToken } = useLoginStore()
+	const { token, setToken, message, setMessage } = useLoginStore()
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
 
-	const handleLogin = async (e: React.MouseEvent) => {
-		e.preventDefault()
-		const data = {
+	interface LoginResponse {
+		access_token: string
+		message: string
+	}
+	const config = {
+		method: 'POST',
+		url: import.meta.env.VITE_LOGIN_URL,
+		data: {
 			email: email,
 			password: password,
-		}
+		},
+	}
 
-		const config = {
-			method: 'POST',
-			url: import.meta.env.VITE_LOGIN_URL,
-			data: data,
-		}
+	const { mutate, isLoading } = useMutation({
+		mutationFn: async () => {
+			const { data } = await axios(config)
 
-		try {
-			const loginResponse = await axios(config)
-			setToken(loginResponse?.data)
-		} catch (error) {
-			console.log(error)
-		}
+			if (data) {
+				setToken(data?.access_token)
+				setMessage(data?.message)
+			}
+		},
+	})
+
+	const handleLogin = async (e: React.MouseEvent) => {
+		e.preventDefault()
+		mutate()
 	}
 
 	return (
@@ -60,7 +69,7 @@ export default function Login() {
 							? 'text-slate-100 hover:bg-blue-950 bg-blue-900'
 							: 'text-white hover:bg-gray-900 bg-slate-800'
 					}`}>
-					Sign in
+					{`${isLoading ? 'Loading' : 'Sign in'}`}
 				</button>
 			</div>
 		</div>
