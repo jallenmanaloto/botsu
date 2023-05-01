@@ -7,6 +7,7 @@ import toast, { Toaster } from 'react-hot-toast'
 import z, { ZodError } from 'zod'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
+import ReactLoading from 'react-loading'
 
 const emailSchema = z
 	.string()
@@ -54,9 +55,6 @@ export default function Login() {
 
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === 'Enter') {
-			console.log('press')
-			console.log(email)
-			// handleLogin(e)
 			try {
 				e.preventDefault()
 				emailSchema.parse(email)
@@ -75,8 +73,6 @@ export default function Login() {
 						})
 					})
 				}
-
-				console.log(error)
 			}
 		}
 	}
@@ -124,15 +120,28 @@ export default function Login() {
 						/>
 					)}
 				</div>
-				<button
-					onClick={(e) => handleLogin(e)}
-					className={`w-full h-20 my-4 bg-gray-800 rounded-lg text-xl font-semibold font-comme outline-none ${
-						mode === 'dark'
-							? 'text-slate-100 hover:bg-blue-950 bg-blue-900'
-							: 'text-white hover:bg-gray-900 bg-gray-950'
-					}`}>
-					{`${isLoading ? 'Loading' : 'Sign in'}`}
-				</button>
+				<div className="w-full my-4 relative">
+					<button
+						onClick={(e) => handleLogin(e)}
+						className={`w-full h-20 bg-gray-800 rounded-lg text-xl font-semibold font-comme outline-none ${
+							mode === 'dark'
+								? 'text-slate-100 hover:bg-blue-950 bg-blue-900'
+								: 'text-white hover:bg-gray-900 bg-gray-950'
+						}`}>
+						{`${isLoading ? '' : 'Sign in'}`}
+					</button>
+					{isLoading ? (
+						<ReactLoading
+							type="spin"
+							className="absolute top-6 left-1/2 transform -translate-x-1/2 h-2 w-2"
+							height={'5%'}
+							width={'5%'}
+						/>
+					) : (
+						''
+					)}
+				</div>
+
 				<div className="w-full flex text-center justify-center text-md font-comme">
 					<p>Don't have an account yet? Click&nbsp;</p>
 					<Link to="/signup">here</Link>

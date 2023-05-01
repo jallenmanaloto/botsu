@@ -8,6 +8,7 @@ import z, { ZodError } from 'zod'
 import toast, { Toaster } from 'react-hot-toast'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
+import ReactLoading from 'react-loading'
 
 const signUpSchema = z.object({
 	email: z.string().email('Not a valid email').min(1, "Email can't be empty"),
@@ -42,11 +43,13 @@ export default function SignUpForm() {
 		data: signUpData,
 	}
 
-	const { mutate, isLoading } = useMutation({
+	const { mutate, isLoading, isSuccess } = useMutation({
 		mutationFn: async () => await axios(config),
 		onSuccess: () => {
 			toast.success('Successfully created your account!')
-			navigate('/signin')
+			setEmail('')
+			setName('')
+			setPassword('')
 		},
 	})
 
@@ -55,6 +58,12 @@ export default function SignUpForm() {
 		try {
 			signUpSchema.parse(signUpData)
 			mutate()
+
+			if (isSuccess) {
+				setTimeout(() => {
+					navigate('/signin')
+				}, 3500)
+			}
 		} catch (error) {
 			if (error instanceof ZodError) {
 				error.errors.forEach((err) => {
@@ -67,8 +76,37 @@ export default function SignUpForm() {
 							width: '450px',
 						},
 					})
-					console.log(err.message)
 				})
+			}
+		}
+	}
+
+	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+		if (e.key === 'Enter') {
+			try {
+				e.preventDefault()
+				signUpSchema.parse(signUpData)
+				mutate()
+
+				if (isSuccess) {
+					setTimeout(() => {
+						navigate('/signin')
+					}, 3500)
+				}
+			} catch (error) {
+				if (error instanceof ZodError) {
+					error.errors.forEach((err) => {
+						toast.error(err.message, {
+							duration: 5000,
+							position: 'top-center',
+							style: {
+								backgroundColor: mode === 'dark' ? 'rgb(3 7 18)' : '',
+								color: mode === 'dark' ? 'white' : '',
+								width: '450px',
+							},
+						})
+					})
+				}
 			}
 		}
 	}
@@ -80,6 +118,7 @@ export default function SignUpForm() {
 				<h2 className="text-4xl font-semibold font-comme py-4">Sign me up</h2>
 				<input
 					onChange={(e) => setEmail(e.target.value)}
+					onKeyDown={(e) => handleKeyDown(e)}
 					value={email}
 					className={`w-full h-20 my-4 pl-5 rounded-lg outline-none xs:max-mdtext-sm lg:text-xl font-comme ${
 						mode === 'dark'
@@ -90,6 +129,7 @@ export default function SignUpForm() {
 				/>
 				<input
 					onChange={(e) => setName(e.target.value)}
+					onKeyDown={(e) => handleKeyDown(e)}
 					value={name}
 					className={`w-full h-20 my-4 pl-5 rounded-lg outline-none xs:max-mdtext-sm lg:text-xl font-comme ${
 						mode === 'dark'
@@ -101,6 +141,7 @@ export default function SignUpForm() {
 				<div className="w-full relative h-20 my-4 rounded-lg ">
 					<input
 						onChange={(e) => setPassword(e.target.value)}
+						onKeyDown={(e) => handleKeyDown(e)}
 						value={password}
 						className={`w-full h-20 pl-5 rounded-lg outline-none xs:max-mdtext-sm lg:text-xl font-comme ${
 							mode === 'dark'
@@ -122,15 +163,27 @@ export default function SignUpForm() {
 						/>
 					)}
 				</div>
-				<button
-					onClick={(e) => handleSignUp(e)}
-					className={`w-full h-20 my-4 bg-gray-800 rounded-lg text-xl font-semibold font-comme outline-none ${
-						mode === 'dark'
-							? 'text-slate-100 hover:bg-blue-950 bg-blue-900'
-							: 'text-white hover:bg-gray-900 bg-slate-800'
-					}`}>
-					{`${isLoading ? 'Loading' : 'Sign up'}`}
-				</button>
+				<div className="w-full my-4 relative">
+					<button
+						onClick={(e) => handleSignUp(e)}
+						className={`w-full h-20 bg-gray-800 rounded-lg text-xl font-semibold font-comme outline-none ${
+							mode === 'dark'
+								? 'text-slate-100 hover:bg-blue-950 bg-blue-900'
+								: 'text-white hover:bg-gray-900 bg-slate-800'
+						}`}>
+						{`${isLoading ? '' : 'Sign up'}`}
+					</button>
+					{isLoading ? (
+						<ReactLoading
+							type="spin"
+							className="absolute top-6 left-1/2 transform -translate-x-1/2 h-2 w-2"
+							height={'5%'}
+							width={'5%'}
+						/>
+					) : (
+						''
+					)}
+				</div>
 				<div className="w-full flex text-center justify-center text-md font-comme">
 					<p>Already have an account?&nbsp;</p>
 					<Link to="/signin">Log in</Link>
