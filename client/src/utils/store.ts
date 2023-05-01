@@ -14,13 +14,25 @@ export const useModeStore = create<Mode>((set) => ({
 type Login = {
   token: string;
   message: string;
+  name: string;
+  email: string;
+  id: string;
   setToken: (response: string) => void
   setMessage: (message: string) => void
+  setName: (message: string) => void
+  setEmail: (message: string) => void
+  setId: (message: string) => void
 }
 
 export const useLoginStore = create<Login>((set) => ({
   token: '',
   message: '',
+  name: '',
+  email: '',
+  id: '',
   setToken: (token: string) => set({ token: token }),
-  setMessage: (message: string) => set({ message: message })
+  setMessage: (message: string) => set({ message: message }),
+  setName: (name: string) => set({ name: name }),
+  setEmail: (email: string) => set({ email: email }),
+  setId: (id: string) => set({ id: id })
 }))

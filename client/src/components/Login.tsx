@@ -8,6 +8,7 @@ import z, { ZodError } from 'zod'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import ReactLoading from 'react-loading'
+import { useNavigate } from 'react-router-dom'
 
 const emailSchema = z
 	.string()
@@ -16,10 +17,11 @@ const emailSchema = z
 
 export default function Login() {
 	const { mode } = useModeStore()
-	const { setToken, setMessage } = useLoginStore()
-	const [email, setEmail] = useState('')
+	const { setToken, setMessage, setEmail, setName, setId } = useLoginStore()
+	const [email, setInputEmail] = useState('')
 	const [password, setPassword] = useState('')
 	const [visible, setVisible] = useState(false)
+	const navigate = useNavigate()
 
 	const config = {
 		method: 'POST',
@@ -37,7 +39,14 @@ export default function Login() {
 			if (data) {
 				setToken(data?.access_token)
 				setMessage(data?.message)
+				setEmail(data?.email)
+				setName(data?.name)
+				setId(data?.id)
 			}
+		},
+		onSuccess: () => {
+			setInputEmail('')
+			setPassword('')
 		},
 	})
 
@@ -46,6 +55,8 @@ export default function Login() {
 			e?.preventDefault()
 			emailSchema.parse(email)
 			mutate()
+
+			navigate('/')
 		} catch (error) {
 			if (error instanceof ZodError) {
 				toast(error.message)
@@ -59,6 +70,8 @@ export default function Login() {
 				e.preventDefault()
 				emailSchema.parse(email)
 				mutate()
+
+				navigate('/')
 			} catch (error) {
 				if (error instanceof ZodError) {
 					error.errors.forEach((err) => {
@@ -85,7 +98,7 @@ export default function Login() {
 					Sign in to your account
 				</h2>
 				<input
-					onChange={(e) => setEmail(e.target.value)}
+					onChange={(e) => setInputEmail(e.target.value)}
 					onKeyDown={(e) => handleKeyDown(e)}
 					value={email}
 					className={`w-full h-20 my-4 pl-5 rounded-lg outline-none xs:max-mdtext-sm lg:text-xl font-comme ${
