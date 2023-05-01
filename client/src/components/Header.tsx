@@ -3,13 +3,28 @@ import LightModeIcon from '@mui/icons-material/LightMode'
 import DarkModeIcon from '@mui/icons-material/DarkMode'
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
 import { useModeStore, useLoginStore } from '../utils/store'
+import { useRef, useState } from 'react'
+import { Menu, MenuItem, Paper } from '@mui/material'
+import { useNavigate } from 'react-router'
 
 export default function Header() {
 	const { mode, setMode } = useModeStore()
-	const { token, email } = useLoginStore()
+	const { token, setToken, email } = useLoginStore()
 	const handleChangeMode = (): void => {
 		const newMode = mode === 'dark' ? 'light' : 'dark'
 		setMode(newMode)
+	}
+
+	const [menu, setMenu] = useState(false)
+	const anchor = useRef(null)
+	const handleMenuToggle = () => {
+		setMenu(!menu)
+	}
+
+	const navigate = useNavigate()
+	const handleLogout = () => {
+		setToken('')
+		navigate('/signin')
 	}
 
 	const openGithub = (): void => {
@@ -39,10 +54,25 @@ export default function Header() {
 				</div>
 				<div>
 					{token ? (
-						<div className="w-full p-5 flex items-center cursor-pointer">
-							<h2>{email}</h2>
-							<ArrowDropDownIcon style={{ marginTop: 3 }} />
-						</div>
+						<>
+							<div className="w-full p-5 flex items-center cursor-pointer">
+								<h2>{email}</h2>
+								<ArrowDropDownIcon
+									ref={anchor}
+									onClick={() => handleMenuToggle()}
+									style={{ marginTop: 3 }}
+								/>
+								<Paper>
+									<Menu
+										anchorEl={anchor.current}
+										open={menu}
+										onClose={() => setMenu(!menu)}>
+										<MenuItem>Profile</MenuItem>
+										<MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
+									</Menu>
+								</Paper>
+							</div>
+						</>
 					) : (
 						''
 					)}
