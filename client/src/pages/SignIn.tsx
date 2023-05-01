@@ -2,7 +2,7 @@ import Login from '../components/Login'
 import Header from '../components/Header'
 import { useModeStore } from '../utils/store'
 
-export default function Sign() {
+export default function SignIn() {
 	const { mode } = useModeStore()
 	return (
 		<div

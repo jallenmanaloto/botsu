@@ -15,7 +15,7 @@ export default function Header() {
 	}
 
 	return (
-		<div className="container lg text-lg flex justify-between">
+		<div className="container lg h-14 w-full text-lg flex justify-between">
 			<h1 className="p-5 text-5xl font-comfortaa font-semibold">Botsu</h1>
 			<div className="w-28 p-5 flex justify-around items-center">
 				<GitHubIcon

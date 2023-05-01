@@ -1,14 +1,15 @@
 import './App.css'
-import Sign from './pages/Sign'
 import { Routes, Route, Link } from 'react-router-dom'
-import Login from './components/Login'
+import SignIn from './pages/SignIn'
+import SignUp from './pages/SignUp'
 
 function App() {
 	return (
 		<>
 			<Routes>
-				<Route path="/" element={<Sign />} />
-				<Route path="/signin" element={<Login />} />
+				<Route path="/" element={<SignIn />} />
+				<Route path="/signin" element={<SignIn />} />
+				<Route path="/signup" element={<SignUp />} />
 			</Routes>
 		</>
 	)
