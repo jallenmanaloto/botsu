@@ -60,7 +60,7 @@ export default function BotDisplay({ botData }: { botData: BotData }) {
 				{botData.quirkName}
 			</div>
 			<div
-				onClick={(e) => handleQuirk()}
+				onClick={() => handleQuirk()}
 				className={`h-10 w-10/12 mt-4 font-semibold font-comme flex justify-center items-center text-lg rounded-md border-2  cursor-pointer ${
 					mode === 'dark'
 						? 'border-slate-500 text-slate-400'

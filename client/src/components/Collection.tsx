@@ -3,6 +3,10 @@ import axios from 'axios'
 import { useLoginStore, useBotStore, usePaginationStore } from '../utils/store'
 import BotDisplay from './BotDisplay'
 
+function AddBot() {
+	return <div></div>
+}
+
 export default function Collection() {
 	const { id, token } = useLoginStore()
 	const { collection, setCollection } = useBotStore()
@@ -35,10 +39,19 @@ export default function Collection() {
 	})
 
 	return (
-		<div className="w-8/12">
-			<div className="grid grid-rows-3 grid-cols-3 place-items-center mt-8 gap-y-8">
-				{botCollection}
-			</div>
-		</div>
+		<>
+			{collection.length < 1 ? (
+				<div className="border-2 border-slate-800 h-20 w-72 mt-10 rounded-md text-slate-700 flex justify-center items-center cursor-pointer">
+					<h2 className="text-4xl">+&nbsp;</h2>
+					<h2 className="text-4xl"> Add a bot</h2>
+				</div>
+			) : (
+				<div className="w-8/12">
+					<div className="grid grid-rows-3 grid-cols-3 place-items-center mt-8 gap-y-8">
+						{botCollection}
+					</div>
+				</div>
+			)}
+		</>
 	)
 }
