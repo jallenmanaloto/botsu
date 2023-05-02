@@ -18,8 +18,8 @@ const emailSchema = z
 export default function Login() {
 	const { mode } = useModeStore()
 	const { setToken, setMessage, setEmail, setName, setId } = useLoginStore()
-	const [email, setInputEmail] = useState('')
-	const [password, setPassword] = useState('')
+	const [email, setInputEmail] = useState('johndoe@email.com')
+	const [password, setPassword] = useState('password1')
 	const [visible, setVisible] = useState(false)
 	const navigate = useNavigate()
 
