@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import {
 	BotData,
 	useModeStore,
@@ -7,7 +6,6 @@ import {
 } from '../../utils/store'
 import { useQuery } from 'react-query'
 import axios from 'axios'
-import ReactLoading from 'react-loading'
 
 export default function BotDisplay({
 	botData,
@@ -19,35 +17,23 @@ export default function BotDisplay({
 	const { mode } = useModeStore()
 	const { token } = useLoginStore()
 	const { setViewBot, setViewBotDetails } = useBotStore()
-	const [quirk, setQuirk] = useState('')
-	const [activeStyleName, setActiveStyleName] = useState('')
 	const baseUrl = import.meta.env.VITE_GET_QUIRK
 	const requestUrl = `${baseUrl}/${botData.quirkFlag}`
 
-	const { data, refetch, isFetching } = useQuery({
+	const { refetch } = useQuery({
 		queryKey: ['botQuirk'],
 		queryFn: async () => {
-			const { data } = await axios(requestUrl, {
+			await axios(requestUrl, {
 				headers: {
 					Authorization: `Bearer ${token}`,
 				},
-			})
-
-			return data
+			}).then((res) => alert(res.data))
 		},
 		refetchOnWindowFocus: false,
 		enabled: false,
-		onSuccess: () => {
-			setQuirk(data as string)
-		},
 	})
 	const handleQuirk = () => {
 		refetch()
-		setActiveStyleName(botData.styleName)
-
-		setTimeout(() => {
-			setQuirk('')
-		}, 5000)
 	}
 
 	const handleView = () => {
@@ -90,13 +76,8 @@ export default function BotDisplay({
 						? 'border-slate-500 text-slate-400'
 						: 'border-black text-black'
 				}`}>
-				{activeStyleName === botData.styleName && isFetching ? (
-					<ReactLoading type="cylon" />
-				) : (
-					command
-				)}
+				command
 			</div>
-			{activeStyleName === botData.styleName && quirk}
 		</div>
 	)
 }
