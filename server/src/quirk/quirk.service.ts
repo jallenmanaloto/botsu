@@ -107,7 +107,7 @@ export class QuirkService {
     const baseUri = process.env.GET_IP;
     const { data } = await this.httpService.axiosRef.get(baseUri);
 
-    return data;
+    return data.ip;
   }
 
 
